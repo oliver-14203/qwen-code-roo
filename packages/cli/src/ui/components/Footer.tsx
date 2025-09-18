@@ -7,12 +7,12 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 import { theme } from '../semantic-colors.js';
+import { customColors } from '../theme/colors.js';
 import { shortenPath, tildeifyPath } from '@qwen-code/qwen-code-core';
 import { ConsoleSummaryDisplay } from './ConsoleSummaryDisplay.js';
 import process from 'node:process';
 import path from 'node:path';
 import Gradient from 'ink-gradient';
-import { MemoryUsageDisplay } from './MemoryUsageDisplay.js';
 import { ContextUsageDisplay } from './ContextUsageDisplay.js';
 import { DebugProfiler } from './DebugProfiler.js';
 
@@ -115,16 +115,12 @@ export const Footer: React.FC<FooterProps> = ({
               ({process.env['SEATBELT_PROFILE']})
             </Text>
           </Text>
-        ) : (
-          <Text color={theme.status.error}>
-            no sandbox <Text color={theme.text.secondary}>(see /docs)</Text>
-          </Text>
-        )}
+        ) : null}
       </Box>
 
       {/* Right Section: Gemini Label and Console Summary */}
       <Box alignItems="center" paddingTop={isNarrow ? 1 : 0}>
-        <Text color={theme.text.accent}>
+        <Text color={customColors.light_blue}>
           {isNarrow ? '' : ' '}
           {model}{' '}
           <ContextUsageDisplay
@@ -148,7 +144,6 @@ export const Footer: React.FC<FooterProps> = ({
             <ConsoleSummaryDisplay errorCount={errorCount} />
           </Box>
         )}
-        {showMemoryUsage && <MemoryUsageDisplay />}
       </Box>
     </Box>
   );

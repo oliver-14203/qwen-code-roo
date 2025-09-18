@@ -6,6 +6,7 @@
 
 import { Box, Text } from 'ink';
 import { Colors } from '../colors.js';
+import { customColors } from '../theme/colors.js';
 import { PrepareLabel } from './PrepareLabel.js';
 export interface Suggestion {
   label: string;
@@ -59,7 +60,7 @@ export function SuggestionsDisplay({
       {visibleSuggestions.map((suggestion, index) => {
         const originalIndex = startIndex + index;
         const isActive = originalIndex === activeIndex;
-        const textColor = isActive ? Colors.AccentPurple : Colors.Gray;
+        const textColor = isActive ? customColors.blue : Colors.Gray;
         const labelElement = (
           <PrepareLabel
             label={suggestion.label}
@@ -91,9 +92,9 @@ export function SuggestionsDisplay({
           </Box>
         );
       })}
-      {endIndex < suggestions.length && <Text color="gray">▼</Text>}
+      {endIndex < suggestions.length && <Text color={customColors.blue}>▼</Text>}
       {suggestions.length > MAX_SUGGESTIONS_TO_SHOW && (
-        <Text color="gray">
+        <Text color={customColors.blue}>
           ({activeIndex + 1}/{suggestions.length})
         </Text>
       )}

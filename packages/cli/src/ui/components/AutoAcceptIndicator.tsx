@@ -7,6 +7,7 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 import { Colors } from '../colors.js';
+import { customColors } from '../theme/colors.js';
 import { ApprovalMode } from '@qwen-code/qwen-code-core';
 
 interface AutoAcceptIndicatorProps {
@@ -27,7 +28,7 @@ export const AutoAcceptIndicator: React.FC<AutoAcceptIndicatorProps> = ({
       subText = ' (shift + tab to toggle)';
       break;
     case ApprovalMode.YOLO:
-      textColor = Colors.AccentRed;
+      textColor = customColors.blue;
       textContent = 'YOLO mode';
       subText = ' (ctrl + y to toggle)';
       break;

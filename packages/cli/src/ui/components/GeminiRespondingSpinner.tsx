@@ -10,6 +10,7 @@ import Spinner from 'ink-spinner';
 import type { SpinnerName } from 'cli-spinners';
 import { useStreamingContext } from '../contexts/StreamingContext.js';
 import { StreamingState } from '../types.js';
+import { customColors } from '../theme/colors.js';
 
 interface GeminiRespondingSpinnerProps {
   /**
@@ -26,9 +27,9 @@ export const GeminiRespondingSpinner: React.FC<
   const streamingState = useStreamingContext();
 
   if (streamingState === StreamingState.Responding) {
-    return <Spinner type={spinnerType} />;
+    return <Text color={customColors.blue}><Spinner type={spinnerType} /></Text>;
   } else if (nonRespondingDisplay) {
-    return <Text>{nonRespondingDisplay}</Text>;
+    return <Text color={customColors.blue}>{nonRespondingDisplay}</Text>;
   }
   return null;
 };

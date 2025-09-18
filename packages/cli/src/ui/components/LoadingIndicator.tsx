@@ -11,9 +11,11 @@ import { Colors } from '../colors.js';
 import { useStreamingContext } from '../contexts/StreamingContext.js';
 import { StreamingState } from '../types.js';
 import { GeminiRespondingSpinner } from './GeminiRespondingSpinner.js';
+import { ScanningText } from './ScanningText.js';
 import { formatDuration } from '../utils/formatters.js';
 import { useTerminalSize } from '../hooks/useTerminalSize.js';
 import { isNarrowWidth } from '../utils/isNarrowWidth.js';
+import { customColors } from '../theme/colors.js';
 
 interface LoadingIndicatorProps {
   currentLoadingPhrase?: string;
@@ -62,7 +64,13 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
             />
           </Box>
           {primaryText && (
-            <Text color={Colors.AccentPurple}>{primaryText}</Text>
+            <ScanningText
+              text={primaryText}
+              scanWidth={4}
+              speed={40}
+              scanColor={customColors.light_blue}
+              baseColor={customColors.blue}
+            />
           )}
           {!isNarrow && cancelAndTimerContent && (
             <Text color={Colors.Gray}> {cancelAndTimerContent}</Text>

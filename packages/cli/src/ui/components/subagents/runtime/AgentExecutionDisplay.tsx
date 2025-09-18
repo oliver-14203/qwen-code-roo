@@ -284,19 +284,19 @@ const ToolCallItem: React.FC<{
     const color = getStatusColor(toolCall.status);
     switch (toolCall.status) {
       case 'executing':
-        return <Text color={color}>⊷</Text>; // Using same as ToolMessage
+        return <Text color={color}>●</Text>; // Using same as ToolMessage
       case 'awaiting_approval':
-        return <Text color={theme.status.warning}>?</Text>;
+        return <Text color={theme.status.warning}>●</Text>;
       case 'success':
-        return <Text color={color}>✓</Text>;
+        return <Text color={color}>●</Text>;
       case 'failed':
         return (
           <Text color={color} bold>
-            x
+            ●
           </Text>
         );
       default:
-        return <Text color={color}>o</Text>;
+        return <Text color={color}>●</Text>;
     }
   }, [toolCall.status]);
 

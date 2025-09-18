@@ -12,6 +12,7 @@ import { ToolConfirmationMessage } from './ToolConfirmationMessage.js';
 import { Colors } from '../../colors.js';
 import { Config } from '@qwen-code/qwen-code-core';
 import { SHELL_COMMAND_NAME } from '../../constants.js';
+import { customColors } from '../../theme/colors.js';
 
 interface ToolGroupMessageProps {
   groupId: number;
@@ -35,7 +36,7 @@ export const ToolGroupMessage: React.FC<ToolGroupMessageProps> = ({
   );
   const isShellCommand = toolCalls.some((t) => t.name === SHELL_COMMAND_NAME);
   const borderColor =
-    hasPending || isShellCommand ? Colors.AccentYellow : Colors.Gray;
+    hasPending || isShellCommand ? customColors.blue : Colors.Gray;
 
   const staticHeight = /* border */ 2 + /* marginBottom */ 1;
   // This is a bit of a magic number, but it accounts for the border and
@@ -78,7 +79,7 @@ export const ToolGroupMessage: React.FC<ToolGroupMessageProps> = ({
       */
       width="100%"
       marginLeft={1}
-      borderDimColor={hasPending}
+      borderDimColor={false}
       borderColor={borderColor}
       gap={1}
     >

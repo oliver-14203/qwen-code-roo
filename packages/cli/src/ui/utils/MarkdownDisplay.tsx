@@ -173,14 +173,14 @@ const MarkdownDisplayInternal: React.FC<MarkdownDisplayProps> = ({
       switch (level) {
         case 1:
           headerNode = (
-            <Text bold color={Colors.AccentCyan}>
+            <Text bold>
               <RenderInline text={headerText} />
             </Text>
           );
           break;
         case 2:
           headerNode = (
-            <Text bold color={Colors.AccentBlue}>
+            <Text bold>
               <RenderInline text={headerText} />
             </Text>
           );

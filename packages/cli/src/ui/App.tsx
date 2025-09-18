@@ -1030,7 +1030,7 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
   const staticAreaMaxItemHeight = Math.max(terminalHeight * 4, 100);
   const placeholder = vimModeEnabled
     ? "  Press 'i' for INSERT mode and 'Esc' for NORMAL mode."
-    : '  Type your message or @path/to/file';
+    : '';
 
   return (
     <StreamingContext.Provider value={streamingState}>

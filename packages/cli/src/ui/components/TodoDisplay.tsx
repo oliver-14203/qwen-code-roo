@@ -19,9 +19,9 @@ interface TodoDisplayProps {
 }
 
 const STATUS_ICONS = {
-  pending: '○',
-  in_progress: '◐',
-  completed: '●',
+  pending: '☐',
+  in_progress: '☐',
+  completed: '☒',
 } as const;
 
 export const TodoDisplay: React.FC<TodoDisplayProps> = ({ todos }) => {
@@ -48,22 +48,19 @@ const TodoItemRow: React.FC<TodoItemRowProps> = ({ todo }) => {
   const isInProgress = todo.status === 'in_progress';
 
   // Use the same color for both status icon and text, like RadioButtonSelect
-  const itemColor = isCompleted
-    ? Colors.Foreground
-    : isInProgress
-      ? Colors.AccentGreen
-      : Colors.Foreground;
+  const itemColor = isCompleted ? Colors.Gray : Colors.Foreground;
+  const isBold = isInProgress;
 
   return (
     <Box flexDirection="row" minHeight={1}>
       {/* Status Icon */}
       <Box width={3}>
-        <Text color={itemColor}>{statusIcon}</Text>
+        <Text color={itemColor} bold={isBold}>{statusIcon}</Text>
       </Box>
 
       {/* Content */}
       <Box flexGrow={1}>
-        <Text color={itemColor} strikethrough={isCompleted} wrap="wrap">
+        <Text color={itemColor} bold={isBold} strikethrough={isCompleted} wrap="wrap">
           {todo.content}
         </Text>
       </Box>

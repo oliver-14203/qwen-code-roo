@@ -7,6 +7,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Text, Box } from 'ink';
 import { Colors } from '../../colors.js';
+import { customColors } from '../../theme/colors.js';
 import { useKeypress } from '../../hooks/useKeypress.js';
 
 /**
@@ -172,15 +173,26 @@ export function RadioButtonSelect<T>({
         const itemIndex = scrollOffset + index;
         const isSelected = activeIndex === itemIndex;
 
-        let textColor = Colors.Foreground;
-        let numberColor = Colors.Foreground;
+        // Determine colors based on selection state
+        let textColor = customColors.white; // Default unselected text color
+        let numberColor = customColors.grey; // Default unselected number color
+        let symbolColor = customColors.white; // Default unselected symbol color
+        
         if (isSelected) {
-          textColor = Colors.AccentGreen;
-          numberColor = Colors.AccentGreen;
+          textColor = customColors.blue; // Selected text color
+          numberColor = customColors.blue_grey; // Selected number color
+          symbolColor = customColors.blue; // Selected symbol color
         } else if (item.disabled) {
           textColor = Colors.Gray;
           numberColor = Colors.Gray;
         }
+
+        // Special handling for "(esc)" text in labels
+        const labelParts = item.label.split('(esc)');
+        const hasEscText = labelParts.length > 1;
+        
+        // Special handling for "Edit FILENAME: CHANGE" text
+        const isEditLabel = item.label.startsWith('Edit ');
 
         if (!showNumbers) {
           numberColor = Colors.Gray;
@@ -194,8 +206,8 @@ export function RadioButtonSelect<T>({
         return (
           <Box key={item.label} alignItems="center">
             <Box minWidth={2} flexShrink={0}>
-              <Text color={isSelected ? Colors.AccentGreen : Colors.Foreground}>
-                {isSelected ? '●' : ' '}
+              <Text color={symbolColor}>
+                {isSelected ? '❯' : ' '}
               </Text>
             </Box>
             <Box
@@ -208,11 +220,21 @@ export function RadioButtonSelect<T>({
             {item.themeNameDisplay && item.themeTypeDisplay ? (
               <Text color={textColor} wrap="truncate">
                 {item.themeNameDisplay}{' '}
-                <Text color={Colors.Gray}>{item.themeTypeDisplay}</Text>
+                <Text color={customColors.grey}>{item.themeTypeDisplay}</Text>
               </Text>
             ) : (
               <Text color={textColor} wrap="truncate">
-                {item.label}
+                {isEditLabel ? (
+                  <Text color={customColors.blue}>{item.label}</Text>
+                ) : hasEscText ? (
+                  <>
+                    {labelParts[0]}
+                    <Text color={customColors.grey}>(esc)</Text>
+                    {labelParts[1]}
+                  </>
+                ) : (
+                  item.label
+                )}
               </Text>
             )}
           </Box>
