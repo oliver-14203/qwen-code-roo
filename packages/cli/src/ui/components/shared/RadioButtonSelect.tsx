@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState, useRef } from 'react';
+import type React from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Text, Box } from 'ink';
 import { Colors } from '../../colors.js';
 import { customColors } from '../../theme/colors.js';
@@ -65,7 +66,6 @@ export function RadioButtonSelect<T>({
   const [scrollOffset, setScrollOffset] = useState(0);
   const [numberInput, setNumberInput] = useState('');
   const numberInputTimer = useRef<NodeJS.Timeout | null>(null);
-
   useEffect(() => {
     const newScrollOffset = Math.max(
       0,
@@ -206,7 +206,10 @@ export function RadioButtonSelect<T>({
         return (
           <Box key={item.label} alignItems="center">
             <Box minWidth={2} flexShrink={0}>
-              <Text color={symbolColor}>
+              <Text
+                color={isSelected ? Colors.AccentGreen : Colors.Foreground}
+                aria-hidden
+              >
                 {isSelected ? '❯' : ' '}
               </Text>
             </Box>
@@ -214,6 +217,7 @@ export function RadioButtonSelect<T>({
               marginRight={1}
               flexShrink={0}
               minWidth={itemNumberText.length}
+              aria-state={{ checked: isSelected }}
             >
               <Text color={numberColor}>{itemNumberText}</Text>
             </Box>

@@ -4,13 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from 'react';
+import type React from 'react';
+import { useMemo } from 'react';
 import { Box } from 'ink';
-import { IndividualToolCallDisplay, ToolCallStatus } from '../../types.js';
+import type { IndividualToolCallDisplay } from '../../types.js';
+import { ToolCallStatus } from '../../types.js';
 import { ToolMessage } from './ToolMessage.js';
 import { ToolConfirmationMessage } from './ToolConfirmationMessage.js';
 import { Colors } from '../../colors.js';
-import { Config } from '@qwen-code/qwen-code-core';
+import type { Config } from '@qwen-code/qwen-code-core';
 import { SHELL_COMMAND_NAME } from '../../constants.js';
 import { customColors } from '../../theme/colors.js';
 
@@ -19,7 +21,7 @@ interface ToolGroupMessageProps {
   toolCalls: IndividualToolCallDisplay[];
   availableTerminalHeight?: number;
   terminalWidth: number;
-  config?: Config;
+  config: Config;
   isFocused?: boolean;
 }
 
@@ -105,6 +107,7 @@ export const ToolGroupMessage: React.FC<ToolGroupMessageProps> = ({
                       : 'medium'
                 }
                 renderOutputAsMarkdown={tool.renderOutputAsMarkdown}
+                config={config}
               />
             </Box>
             {tool.status === ToolCallStatus.Confirming &&
