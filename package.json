@@ -96,6 +96,8 @@
   },
   "dependencies": {
     "@lvce-editor/ripgrep": "^1.6.0",
+    "entities": "^7.0.0",
+    "htmlparser2": "^10.0.0",
     "simple-git": "^3.28.0",
     "strip-ansi": "^7.1.0"
   },
