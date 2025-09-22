@@ -140,6 +140,10 @@ const PATTERNS: Array<[RegExp, TokenCount]> = [
   [/^gpt-oss.*$/, LIMITS['128k']],
   [/^llama-4-scout.*$/, LIMITS['10m'] as unknown as TokenCount], // ultra-long variants - handle carefully
   [/^mistral-large-2.*$/, LIMITS['128k']],
+  // -------------------
+  // xAI Grok
+  // -------------------
+  [/^grok-4-fast.*$/, LIMITS['2m']],
 ];
 
 /** Return the token limit for a model string (uses normalize + ordered regex list). */
