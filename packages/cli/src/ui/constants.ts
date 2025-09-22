@@ -18,10 +18,10 @@ export const SHELL_COMMAND_NAME = 'Shell Command';
 
 // Tool status symbols used in ToolMessage component
 export const TOOL_STATUS = {
-  SUCCESS: '⏺',
-  PENDING: '⏺',
-  EXECUTING: '⏺',
-  CONFIRMING: '⏺',
-  CANCELED: '⏺',
-  ERROR: '⏺',
+  SUCCESS: '●',
+  PENDING: '●',
+  EXECUTING: '●',
+  CONFIRMING: '●',
+  CANCELED: '●',
+  ERROR: '●',
 } as const;

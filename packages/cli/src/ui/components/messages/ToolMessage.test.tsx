@@ -12,10 +12,11 @@ import { StreamingState, ToolCallStatus } from '../../types.js';
 import { Text } from 'ink';
 import { StreamingContext } from '../../contexts/StreamingContext.js';
 import type { Config } from '@qwen-code/qwen-code-core';
+import { TOOL_STATUS } from '../../constants.js';
 
 // Mock child components or utilities if they are complex or have side effects
-vi.mock('../GeminiRespondingSpinner.js', () => ({
-  GeminiRespondingSpinner: ({
+vi.mock('../FlashingSpinner.js', () => ({
+  FlashingSpinner: ({
     nonRespondingDisplay,
   }: {
     nonRespondingDisplay?: string;
@@ -141,7 +142,7 @@ describe('<ToolMessage />', () => {
         <ToolMessage {...baseProps} status={ToolCallStatus.Executing} />,
         StreamingState.Idle,
       );
-      expect(lastFrame()).toContain('⊷');
+      expect(lastFrame()).toContain(TOOL_STATUS.EXECUTING);
       expect(lastFrame()).not.toContain('MockRespondingSpinner');
       expect(lastFrame()).not.toContain('✓');
     });
@@ -151,7 +152,7 @@ describe('<ToolMessage />', () => {
         <ToolMessage {...baseProps} status={ToolCallStatus.Executing} />,
         StreamingState.WaitingForConfirmation,
       );
-      expect(lastFrame()).toContain('⊷');
+      expect(lastFrame()).toContain(TOOL_STATUS.EXECUTING);
       expect(lastFrame()).not.toContain('MockRespondingSpinner');
       expect(lastFrame()).not.toContain('✓');
     });

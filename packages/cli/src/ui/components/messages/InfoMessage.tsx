@@ -19,6 +19,16 @@ export const InfoMessage: React.FC<InfoMessageProps> = ({ text }) => {
     return null;
   }
 
+  // Special handling for the interrupted message
+  if (text === '  ⎿  Interrupted') {
+    return (
+      <Box flexDirection="row" marginTop={1}>
+        <Text color={Colors.Foreground}>  ⎿  </Text>
+        <Text color={Colors.AccentRed}>Interrupted</Text>
+      </Box>
+    );
+  }
+
   const prefix = 'ℹ ';
   const prefixWidth = prefix.length;
 

@@ -43,7 +43,7 @@ const getStatusColor = (
     case 'success':
       return theme.status.success;
     case 'cancelled':
-      return theme.status.warning;
+      return theme.status.error; // Use accent red for cancelled status
     case 'failed':
       return theme.status.error;
     default:
@@ -54,7 +54,7 @@ const getStatusColor = (
 const getStatusText = (status: TaskResultDisplay['status']) => {
   switch (status) {
     case 'running':
-      return 'Running';
+      return ''; // Return empty string for running status
     case 'completed':
       return 'Completed';
     case 'cancelled':
@@ -303,11 +303,17 @@ const TaskPromptSection: React.FC<{
  */
 const StatusDot: React.FC<{
   status: TaskResultDisplay['status'];
-}> = ({ status }) => (
-  <Box marginLeft={1} marginRight={1}>
-    <Text color={getStatusColor(status)}>⏺</Text>
-  </Box>
-);
+}> = ({ status }) => {
+  // Don't render anything if status is running
+  if (status === 'running') {
+    return null;
+  }
+  return (
+    <Box marginLeft={1} marginRight={1}>
+      <Text color={getStatusColor(status)}>●</Text>
+    </Box>
+  );
+};
 
 /**
  * Status indicator component
@@ -317,6 +323,10 @@ const StatusIndicator: React.FC<{
 }> = ({ status }) => {
   const color = getStatusColor(status);
   const text = getStatusText(status);
+  // Don't render anything if text is empty (for running status)
+  if (!text) {
+    return null;
+  }
   return <Text color={color}>{text}</Text>;
 };
 
@@ -372,22 +382,21 @@ const ToolCallItem: React.FC<{
 
   // Map subagent status to ToolCallStatus-like display
   const statusIcon = React.useMemo(() => {
-    const color = getStatusColor(toolCall.status);
     switch (toolCall.status) {
       case 'executing':
-        return <Text color={color}>⏺</Text>; // Using same as ToolMessage
+        return <Text color={Colors.Foreground}>⎿</Text>;
       case 'awaiting_approval':
-        return <Text color={theme.status.warning}>⏺</Text>;
+        return <Text color={Colors.Foreground}>⎿</Text>;
       case 'success':
-        return <Text color={color}>⏺</Text>;
+        return <Text color={Colors.Foreground}>⎿</Text>;
       case 'failed':
         return (
-          <Text color={color} bold>
-            ⏺
+          <Text color={Colors.Foreground} bold>
+            ⎿
           </Text>
         );
       default:
-        return <Text color={color}>⏺</Text>;
+        return <Text color={Colors.Foreground}>⎿</Text>;
     }
   }, [toolCall.status]);
 

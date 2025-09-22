@@ -11,10 +11,10 @@ import { ToolCallStatus } from '../../types.js';
 import { DiffRenderer } from './DiffRenderer.js';
 import { Colors } from '../../colors.js';
 import { MarkdownDisplay } from '../../utils/MarkdownDisplay.js';
-import { GeminiRespondingSpinner } from '../GeminiRespondingSpinner.js';
 import { MaxSizedBox } from '../shared/MaxSizedBox.js';
 import { TodoDisplay } from '../TodoDisplay.js';
 import { TOOL_STATUS } from '../../constants.js';
+import { FlashingSpinner } from '../FlashingSpinner.js';
 import type {
   TodoResultDisplay,
   TaskResultDisplay,
@@ -271,8 +271,7 @@ const ToolStatusIndicator: React.FC<ToolStatusIndicatorProps> = ({
       <Text color={Colors.AccentGreen}>{TOOL_STATUS.PENDING}</Text>
     )}
     {status === ToolCallStatus.Executing && (
-      <GeminiRespondingSpinner
-        spinnerType="toggle"
+      <FlashingSpinner
         nonRespondingDisplay={TOOL_STATUS.EXECUTING}
       />
     )}
@@ -287,7 +286,7 @@ const ToolStatusIndicator: React.FC<ToolStatusIndicatorProps> = ({
       </Text>
     )}
     {status === ToolCallStatus.Canceled && (
-      <Text color={Colors.AccentYellow} aria-label={'Canceled:'} bold>
+      <Text color={Colors.AccentRed} aria-label={'Canceled:'} bold>
         {TOOL_STATUS.CANCELED}
       </Text>
     )}

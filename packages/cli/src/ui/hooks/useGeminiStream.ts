@@ -226,13 +226,16 @@ export const useGeminiStream = (
     if (pendingHistoryItemRef.current) {
       addItem(pendingHistoryItemRef.current, Date.now());
     }
-    addItem(
-      {
-        type: MessageType.INFO,
-        text: 'Request cancelled.',
-      },
-      Date.now(),
-    );
+    // Only show interruption message for non-tool calls
+    if (pendingHistoryItemRef.current && pendingHistoryItemRef.current.type !== 'tool_group') {
+      addItem(
+        {
+          type: MessageType.INFO,
+          text: '  ⎿  Interrupted',
+        },
+        Date.now(),
+      );
+    }
     setPendingHistoryItem(null);
     onCancelSubmit();
     setIsResponding(false);
@@ -468,10 +471,13 @@ export const useGeminiStream = (
         }
         setPendingHistoryItem(null);
       }
-      addItem(
-        { type: MessageType.INFO, text: 'User cancelled the request.' },
-        userMessageTimestamp,
-      );
+      // Only show interruption message for non-tool calls
+      if (pendingHistoryItemRef.current && pendingHistoryItemRef.current.type !== 'tool_group') {
+        addItem(
+          { type: MessageType.INFO, text: 'User cancelled the request.' },
+          userMessageTimestamp,
+        );
+      }
       setIsResponding(false);
       setThought(null); // Reset thought when user cancels
     },
