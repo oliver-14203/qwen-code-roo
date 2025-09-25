@@ -27,6 +27,7 @@ export function normalize(model: string): string {
   // keep final path segment (strip provider prefixes), handle pipe/colon
   s = s.replace(/^.*\//, '');
   s = s.split('|').pop() ?? s;
+  s = s.replace(/:free$/, '');
   s = s.split(':').pop() ?? s;
 
   // collapse whitespace to single hyphen
